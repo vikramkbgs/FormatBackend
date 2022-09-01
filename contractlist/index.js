@@ -1,23 +1,60 @@
 const express = require('express');
 const path = require('path');
+const { brotliDecompressSync } = require('zlib');
 
 
 const port = 8000;
 const app = express();
 
+
 app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname, 'views'));
+app.use(express.urlencoded());
 
+var contract_list = [
+    {
+        name : "Vikram",
+        phone : 7808440498
+    },
 
+    {
+        name : "Piyush",
+        phone : 6201390330
+    },
 
-app.get('/', function(req, res){
-    return res.render('home', {title : "i'm flying"});
+    {
+        name : "Mausam",
+        phone : 6287766613
+    },
+
+    {
+        name : "Muskan",
+        phone : 7549753432
+    }
+];
+
+app.get('/home', function(req, res){
+
+    return res.render('home', {
+        title : "Contract List",
+        contract : contract_list
+    });
 });
 
 app.get('/practice', function(req, res){
     return res.render('practice',{
         message : "I'm in index.js"
-    })
+    });
+});
+
+app.post('/contract_list', function(req, res){
+
+    console.log(req.body);
+    contract_list.push({
+        name : req.body.name, 
+        phone : req.body.number
+    });
+    return res.redirect('back');
 });
 
 
