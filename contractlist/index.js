@@ -33,8 +33,9 @@ var contract_list = [
     }
 ];
 
-app.get('/home', function(req, res){
+app.get('/', function(req, res){
 
+    console.log(req);
     return res.render('home', {
         title : "Contract List",
         contract : contract_list
