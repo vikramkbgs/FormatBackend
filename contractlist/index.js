@@ -11,6 +11,19 @@ app.set('view engine', 'ejs');
 app.set('views',path.join(__dirname, 'views'));
 app.use(express.urlencoded());
 
+
+// middleware first 
+app.use(function(res, req, next){
+    console.log("first middleware calling!");
+    next();
+});
+
+// middleware second 
+app.use(function(res, req, next){
+    console.log("second middleware calling!");
+    next();
+});
+
 var contract_list = [
     {
         name : "Vikram",
@@ -35,7 +48,7 @@ var contract_list = [
 
 app.get('/', function(req, res){
 
-    console.log(req);
+    // console.log(req);
     return res.render('home', {
         title : "Contract List",
         contract : contract_list
@@ -50,7 +63,7 @@ app.get('/practice', function(req, res){
 
 app.post('/contract_list', function(req, res){
 
-    console.log(req.body);
+    // console.log(req.body);
     contract_list.push({
         name : req.body.name, 
         phone : req.body.number
