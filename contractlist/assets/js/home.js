@@ -1,0 +1,1 @@
+console.log("i'm js static file in assets folder!");
