@@ -7,26 +7,35 @@
     <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <form action="/contract_list" method ="post">
+    
+    <main>
+        <h1>Contract List</h1>
+        <ul>
+            <% for (let i of contract){%>
+                <li>
+                <div class="content">
+                <p> <%= i.name %> </p>
+                <p> <%= i.phone %> </p>
+                </div>
+                </li>
+            <%}%>
+        </ul>
+
+        <form action="/contract_list" method ="post">
         <table>
-            <th>Add Contract</th>
             <tr>
                 <td><input type="text" name = "name" placeholder="Enter Name" required></td>
                 <td><input type="number" name = "number" placeholder="Enter number" required></td>
                 <td><input type="submit"></td>
             </tr>
-         </table>
-    </form>
+        </table>
+        </form>
 
-     <h1>Contract List</h1>
-    <ul>
-            <% for (let i of contract){%>
-                <li>
-                <p> <%= i.name %> </p>
-                <p> <%= i.phone %> </p>
-                </li>
-            <%}%>
-    </ul>
+    </main>
+
+    
+
+    
     <script type="text/javascript" src="/js/home.js" ></script>
     
 </body>

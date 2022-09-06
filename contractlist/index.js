@@ -14,16 +14,16 @@ app.use(express.static('assets')); // accessing assets file
 
 
 // middleware first 
-app.use(function(res, req, next){
-    console.log("first middleware calling!");
-    next();
-});
+// app.use(function(res, req, next){
+//     console.log("first middleware calling!");
+//     next();
+// });
 
 // middleware second 
-app.use(function(res, req, next){
-    console.log("second middleware calling!");
-    next();
-});
+// app.use(function(res, req, next){
+//     console.log("second middleware calling!");
+//     next();
+// });
 
 var contract_list = [
     {
