@@ -5,18 +5,23 @@
         <%= locals.title %>
     </title>
     <link rel="stylesheet" href="/css/home.css">
-
 </head>
 <body>
-    
+    <div clas="container">
     <main>
         <h1>Contract List</h1>
         <ul>
             <% for (let i of contract){%>
                 <li>
-                <div class="content">
-                <p> <%= i.name %> </p>
-                <p> <%= i.phone %> </p>
+                <div>
+                    <%= i.name %>
+                </div>
+                <div> 
+                    <%= i.phone %>
+                </div>
+                <div>
+                    <!-- 13. adding id so that will help to delete the item -->
+                  <a href="/delete-contact/?id=<%=i._id%>">🔥</a>  
                 </div>
                 </li>
             <%}%>
@@ -27,12 +32,13 @@
             <tr>
                 <td><input type="text" name = "name" placeholder="Enter Name" required></td>
                 <td><input type="number" name = "number" placeholder="Enter number" required></td>
-                <td><input type="submit"></td>
+                <td><input type="submit" class="button-field"></td>
             </tr>
         </table>
         </form>
 
     </main>
+    </div>
 
     
 

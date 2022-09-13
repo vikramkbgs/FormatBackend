@@ -1,6 +1,10 @@
 const express = require('express');
 const path = require('path');
 
+const db = require('./config/mongoose');
+//10. importing collection from models
+const Contact = require('./models/Contact');
+
 
 const port = 8000;
 const app = express();
@@ -24,34 +28,41 @@ app.use(express.static('assets')); // accessing assets file
 //     next();
 // });
 
-var contract_list = [
-    {
-        name : "Vikram",
-        phone : 7808440498
-    },
-
-    {
-        name : "Piyush",
-        phone : 6201390330
-    },
-
-    {
-        name : "Mausam",
-        phone : 6287766613
-    },
-
-    {
-        name : "Muskan",
-        phone : 7549753432
-    }
-];
 
 app.get('/', function(req, res){
 
     // console.log(req);
-    return res.render('home', {
+
+    // 12. fetching data from db using .find function
+    Contact.find({}, function(err, contacts)
+    {
+        if(err){
+            console.log('Error in fetching contacts from db.');
+            return;
+        }
+
+        return res.render('home', {
         title : "Contract List",
-        contract : contract_list
+        contract : contacts
+    });
+    });
+});
+
+// 14. adding function for delete operation
+app.get('/delete-contact', function(req, res){
+
+    // console.log(req);
+    // using query param(there is two param and query)
+        let id = req.query.id;
+    // 15. findByIdAndDelete function use to find and delete item
+    Contact.findByIdAndDelete(id, function(err)
+    {
+        if(err){
+            console.log('Error in deleting contacts from db.');
+            return;
+        }
+
+        return res.redirect('back');
     });
 });
 
@@ -61,14 +72,26 @@ app.get('/practice', function(req, res){
     });
 });
 
+
+// adding data in data base using this url
 app.post('/contract_list', function(req, res){
 
     // console.log(req.body);
-    contract_list.push({
-        name : req.body.name, 
+    // contract_list.push({
+    //     name : req.body.name, 
+    //     phone : req.body.number
+    // });
+
+    // 11. using create function storing data from input
+    Contact.create({
+        name : req.body.name,
         phone : req.body.number
+    }, function(error, newContact){
+        if(error){console.log('error in creating a contact'); return;}
+
+        console.log('******', newContact);
+        return res.redirect('back');
     });
-    return res.redirect('back');
 });
 
 
