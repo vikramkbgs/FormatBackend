@@ -1,19 +1,8 @@
-body {
+html{
+    font-size: 62.5%;
+}
+
+*,
+body{
     margin: 0;
-}
-
-input {
-    width: 100px
-}
-
-ul {
-    width: 300px;
-}
-
-ul li {
-    background-color: gray;
-}
-
-ul li p {
-    color: aqua;
 }
