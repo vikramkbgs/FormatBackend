@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const { brotliDecompressSync } = require('zlib');
 
 
 const port = 8000;
