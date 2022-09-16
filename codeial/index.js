@@ -7,10 +7,13 @@ const port = 8000;
 
 const app = express();
 
-
+// use routes 
 app.use('/', require('./routes'));
 
 
+//seting views engines ejs
+app.set('view  engines', 'ejs');
+app.use('views', './views');
 
 
 
