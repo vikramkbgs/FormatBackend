@@ -11,6 +11,12 @@ const app = express();
 const expressLayouts = require("express-ejs-layouts");
 app.use(expressLayouts);
 
+
+// extracting style and script from subfile to layout 
+app.set('layout extractStyles', true);
+app.set("layout extractScripts", true);
+
+
 // use  express routes 
 app.use('/', require('./routes'));
 

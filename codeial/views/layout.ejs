@@ -2,6 +2,9 @@
     <head>
         <title> <%= title %></title>
         <link rel="stylesheet" href="/css/layout.css">
+
+        <!-- // setting position of css file of partial views -->
+        <%- style %>
     </head>
     <body>
         <%- include('_header') %>
@@ -11,5 +14,9 @@
 
 
         <%- include('_footer') %>
+
+        <!-- setting position of js file of partial views -->
+        <%- script %>
+
     </body>
 </html>
