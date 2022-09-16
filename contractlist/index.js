@@ -3,7 +3,7 @@ const path = require('path');
 
 const db = require('./config/mongoose');
 //10. importing collection from models
-const Contact = require('./models/Contact');
+const Contact = require('./models/contact');
 
 
 const port = 8000;
