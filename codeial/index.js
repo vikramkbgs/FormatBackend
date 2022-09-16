@@ -20,6 +20,10 @@ app.set('view engine', 'ejs');                    // debug extra space give you 
 app.set('views', './views');
 
 
+// use static file css js images
+app.use(express.static('assests'));
+
+
 
 app.listen(port, function(err){
     if(err)
