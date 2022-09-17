@@ -15,11 +15,11 @@ module.exports.profile = function(req, res){
           user:user 
         })
       }
-      return res.redirect('users/sign-in');
+      return res.redirect('/users/sign-in');
     });
   }
   else{
-    return res.redirect('users/sign-in');
+    return res.redirect('/users/sign-in');
   } 
 }
   //2. action render sign up page 
