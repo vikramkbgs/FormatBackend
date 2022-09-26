@@ -41,7 +41,7 @@ module.exports.create = function(req, res){
         });
 }
 
-// 5. action sign in and create session for the user
-module.exports.createSession = function(req, res){
-  
-cd }
+// 5. action sign in and create session for the user automatic
+module.exports.createSession = function (req, res) {
+  return res.redirect("/");
+};
