@@ -1,33 +1,31 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const db = require("./config/mongoose");
-const expressLayouts = require("express-ejs-layouts");
-// used for session cookie
-const session = require('express-session');
-const passport = require('passport');
-const passportLocal = require('./config/passport-local-strategy');
-
-const port = 8000;
-
-
-
+const express = require("express");
+const cookieParser = require("cookie-parser");
 const app = express();
-// use cookie parser for cookies
-app.use(cookieParser());
+const port = 8000;
+const expressLayouts = require("express-ejs-layouts");
+const db = require("./config/mongoose");
+// used for session cookie
+const session = require("express-session");
+const passport = require("passport");
+const passportLocal = require("./config/passport-local-strategy");
+const MongoStore = require("connect-mongo")(session);
 
-// use express.urlencoded for post request
 app.use(express.urlencoded());
 
-//set up the views engine ejs
-app.set('view engine', 'ejs');                    // debug extra space give you error
-app.set('views', './views');
+app.use(cookieParser());
 
-// use static file css js images
-app.use(express.static('assests'));
+app.use(express.static("./assets"));
 
-//use express layouts
 app.use(expressLayouts);
+// extract style and scripts from sub pages into the layout
+app.set("layout extractStyles", true);
+app.set("layout extractScripts", true);
 
+// set up the view engine
+app.set("view engine", "ejs");
+app.set("views", "./views");
+
+// mongo store is used to store the session cookie in the db
 app.use(
   session({
     name: "codeial",
@@ -38,30 +36,30 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 100,
     },
+    store: new MongoStore(
+      {
+        mongooseConnection: db,
+        autoRemove: "disabled",
+      },
+      function (err) {
+        console.log(err || "connect-mongodb setup ok");
+      }
+    )
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-// use  express routes 
-app.use('/', require('./routes'));
+app.use(passport.setAuthenticatedUser);
 
+// use express router
+app.use("/", require("./routes"));
 
+app.listen(port, function (err) {
+  if (err) {
+    console.log(`Error in running the server: ${err}`);
+  }
 
-// extracting style and script from subfile to layout 
-app.set('layout extractStyles', true);
-app.set("layout extractScripts", true);
-
-
-
-app.listen(port, function(err){
-    if(err)
-    {
-        console.log(`Error in running: ${err}`)
-        return;
-    }
-
-    console.log(`Server is running at port: ${port}`);
-    return;
-})
+  console.log(`Server is running on port: ${port}`);
+});

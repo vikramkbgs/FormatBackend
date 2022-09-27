@@ -14,10 +14,13 @@ module.exports.signUp = function(req, res){
   });
 }
 
-//3. action render sign up page 
+//3. action render sign in page 
 module.exports.signIn = function(req, res){
-  return res.render('user_sign_in',{
-    title:'Codeial | Sign in'
+  if (req.isAuthenticated()) {
+    return res.redirect("/users/profile");
+  }
+  return res.render("user_sign_in", {
+    title: "Codeial | Sign In",
   });
 }
 
@@ -39,9 +42,18 @@ module.exports.create = function(req, res){
             return res.redirect('back');
           }
         });
-}
+};
 
 // 5. action sign in and create session for the user automatic
 module.exports.createSession = function (req, res) {
   return res.redirect("/");
+};
+
+module.exports.destroySession = function(req, res){
+    req.logout(function(err) {
+    if (err) { 
+      return next(err); 
+      }
+    })
+    return res.redirect('/');
 };
