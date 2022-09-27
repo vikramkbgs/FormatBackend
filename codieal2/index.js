@@ -12,6 +12,7 @@ const MongoStore = require('connect-mongo')(session);
 const sassMiddleware =require('node-sass-middleware');
 
 app.use(express.static("./assets"));
+
 app.use(
     sassMiddleware({
     src: './assets/scss',
