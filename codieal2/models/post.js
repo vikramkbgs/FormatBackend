@@ -5,20 +5,20 @@ const postSchema = new mongoose.Schema(
   {
     content: {
       type: String,
-      required: true,
+      required: true
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "User"
     },
     //include the array of ids of all comments in this post schema itself for fast acess
-    comment: {
+    comment: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    },
+      ref: "Comment"
+    }]
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 
